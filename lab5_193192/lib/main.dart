@@ -61,8 +61,9 @@ class ExamsList extends StatefulWidget {
 class _ExamsListState extends State<ExamsList> {
   List<Exam> examsList = [
     Exam(LatLng(51.5074, -0.1278), text: 'Math', date: DateTime(2023, 3, 30)),
-    Exam(LatLng(51.5074, -0.1278), text: 'English', date: DateTime(2023, 3, 3, 17, 51)),
-    Exam(LatLng(51.5074, -0.1278),text: 'Physics', date: DateTime(2023, 3, 28))
+    Exam(LatLng(51.5074, -0.1278),
+        text: 'English', date: DateTime(2023, 3, 3, 17, 51)),
+    Exam(LatLng(51.5074, -0.1278), text: 'Physics', date: DateTime(2023, 3, 28))
   ];
 
   late final Map<DateTime, String> _events = {
@@ -124,8 +125,11 @@ class _ExamsListState extends State<ExamsList> {
               ElevatedButton(
                 child: Text('Choose Location'),
                 onPressed: () async {
-                  final LatLng selectedLocation = await Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => MapScreen(onSelectLocation: (LatLng ) {  },)));
+                  final LatLng selectedLocation =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MapScreen(
+                                onSelectLocation: (LatLng) {},
+                              )));
                   if (selectedLocation != null) {
                     location = selectedLocation;
                   }
@@ -145,11 +149,14 @@ class _ExamsListState extends State<ExamsList> {
               onPressed: () {
                 if (textValue != null && dateValue != null) {
                   setState(() {
-                    examsList.add(Exam(LatLng(51.5074, -0.1278),text: textValue!, date: dateValue!));
+                    examsList.add(Exam(LatLng(51.5074, -0.1278),
+                        text: textValue!, date: dateValue!));
                     _events.putIfAbsent(dateValue!, () => textValue!);
                   });
-                  NotificationService.scheduleNotification(
-                      Exam(LatLng(51.5074, -0.1278),text: textValue!, date: dateValue!));
+                  NotificationService.scheduleNotification(Exam(
+                      LatLng(51.5074, -0.1278),
+                      text: textValue!,
+                      date: dateValue!));
                   Navigator.of(context).pop();
                 }
               },
@@ -270,7 +277,6 @@ class _ExamsListState extends State<ExamsList> {
     );
   }
 }
-
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
